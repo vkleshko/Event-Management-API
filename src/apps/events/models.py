@@ -22,3 +22,25 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class EventRegistration(models.Model):
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name="event_registrations"
+    )
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.CASCADE,
+        related_name="registrations"
+    )
+    registered_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Event registration"
+        verbose_name_plural = "Event registrations"
+        unique_together = ("user", "event")
+
+    def __str__(self):
+        return f"{self.user.full_name} --> {self.event.title}"
