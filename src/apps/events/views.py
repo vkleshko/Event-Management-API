@@ -1,17 +1,33 @@
+import django_filters
 from rest_framework import status
+from rest_framework import filters
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Event
 from .serializers import EventSerializer
 
 
+class EventFilter(django_filters.FilterSet):
+    date_from = django_filters.DateFilter(field_name="date", lookup_expr="gte")
+    date_to = django_filters.DateFilter(field_name="date", lookup_expr="lte")
+
+    class Meta:
+        model = Event
+        fields = {"location": ["iexact"]}
+
+
 class EventViewSet(ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_class = EventFilter
+    search_fields = ["title", "description"]
 
     def list(self, request):
-        serializer = self.get_serializer(self.get_queryset(), many=True)
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
