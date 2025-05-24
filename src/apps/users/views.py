@@ -1,10 +1,10 @@
-from rest_framework.decorators import action
-from django.core.exceptions import ValidationError
-from django.db import IntegrityError
 from rest_framework import status
+from django.db import IntegrityError
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework.viewsets import GenericViewSet
+from django.core.exceptions import ValidationError
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import CustomUser
@@ -14,7 +14,7 @@ from .serializers import UserSerializer
 class AuthViewSet(GenericViewSet):
     serializer_class = UserSerializer
 
-    @action(detail=False, methods=["POST"])
+    @action(detail=False, methods=["post"])
     def login(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
