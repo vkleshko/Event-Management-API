@@ -17,11 +17,6 @@ class EventSerializer(serializers.ModelSerializer):
             "organizer",
         ]
 
-    def create(self, validated_data):
-        request = self.context.get("request")
-        organizer = request.user
-        return Event.objects.create(**validated_data, organizer=organizer)
-
 
 class EventRegistrationSerializer(serializers.ModelSerializer):
     user = serializers.CharField(source="user.full_name", read_only=True)
