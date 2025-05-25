@@ -26,7 +26,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Snippets API",
         default_version="v1",
-        description="Test description",
+        description="Event Management API is a RESTful web application built with Django and Django REST Framework for managing events and user registrations.",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),
