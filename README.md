@@ -64,10 +64,6 @@ Clone the repository:
 ```bash
 git clone https://github.com/vkleshko/Event-Management-API.git
 ```
-Navigate into the project directory::
-```bash
-cd Event-Management-API
-```
 Start the project using Docker:
 ```bash
 docker-compose up -d
